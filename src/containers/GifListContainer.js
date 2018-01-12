@@ -11,12 +11,18 @@ export default class GifListContainer extends React.Component {
     }
   }
 
-  
+
 
   getGifs = (query) => {
     fetch(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC`)
       .then(resp => resp.json())
-        .then(json => this.setState( { gifs: json.data }, () => console.log()))
+      .then(json => {
+        const arr = [];
+        for (let i = 0; i < 3; i++) {
+          arr.push(json.data[i]);
+        }
+        this.setState( { gifs: arr} )
+      })
   }
 
   render() {
